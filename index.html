@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neatcom — Marketing & Website Review</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --surface:   #fcfcfb;
+    --ink:       #0b0b0b;
+    --ink-2:     #52514e;
+    --ink-3:     #86847e;
+    --rule:      #e4e3de;
+    --accent:    #15405f;
+    --blue:      #2a78d6;
+    --orange:    #eb6834;
+    --good:      #0ca30c;
+    --critical:  #d03b3b;
+    --tint:      #f3f5f7;
+  }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--surface);
+    font-size: 10.5pt;
+    line-height: 1.52;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 210mm; height: 297mm;
+    padding: 20mm 18mm 16mm;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- cover ---------- */
+  .cover { background: var(--accent); color: #fff; padding: 0; justify-content: space-between; }
+  .cover-top { padding: 26mm 18mm 0; }
+  .cover-rule { width: 54px; height: 4px; background: var(--blue); margin-bottom: 11mm; }
+  .cover h1 { font-size: 33pt; line-height: 1.14; font-weight: 650; letter-spacing: -0.5px; }
+  .cover h1 em { font-style: normal; color: #8ec5ff; }
+  .cover .sub { margin-top: 7mm; font-size: 12.5pt; color: #c3d6e4; font-weight: 350; max-width: 135mm; line-height: 1.5; }
+  .cover-mid { padding: 0 18mm; margin-top: 14mm; margin-bottom: auto; }
+  .cover-stats { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); }
+  .cover-stat { flex: 1; padding: 7mm 0; border-right: 1px solid rgba(255,255,255,.14); }
+  .cover-stat:last-child { border-right: 0; }
+  .cover-stat .n { font-size: 20pt; font-weight: 680; letter-spacing: -0.5px; }
+  .cover-stat .l { font-size: 7.6pt; color: #a8c3d6; text-transform: uppercase; letter-spacing: .09em; margin-top: 2mm; }
+  .cover-foot { padding: 0 18mm 18mm; font-size: 9.5pt; color: #a8c3d6; }
+  .cover-foot .ph { color: #fff; background: rgba(255,255,255,.14); padding: 1px 7px; border-radius: 3px; }
+  .cover-foot .row { margin-top: 2.5mm; }
+
+  /* ---------- shared ---------- */
+  .kicker { font-size: 7.8pt; font-weight: 680; letter-spacing: .13em; text-transform: uppercase; color: var(--blue); margin-bottom: 3.5mm; }
+  h2 { font-size: 20pt; font-weight: 650; letter-spacing: -0.35px; line-height: 1.18; margin-bottom: 4mm; }
+  h3 { font-size: 11.5pt; font-weight: 650; margin-bottom: 1.6mm; }
+  p { margin-bottom: 3mm; color: var(--ink-2); }
+  p.lead { font-size: 11.5pt; color: var(--ink); line-height: 1.55; margin-bottom: 6mm; }
+  strong { color: var(--ink); font-weight: 640; }
+  .pnum { position: absolute; bottom: 9mm; right: 18mm; font-size: 8pt; color: var(--ink-3); }
+  .ftag { position: absolute; bottom: 9mm; left: 18mm; font-size: 8pt; color: var(--ink-3); }
+
+  /* finding blocks */
+  .finding { display: flex; gap: 6mm; padding: 4.6mm 0; border-top: 1px solid var(--rule); }
+  .finding:last-of-type { border-bottom: 1px solid var(--rule); }
+  .fnum { flex: 0 0 9mm; font-size: 15pt; font-weight: 680; color: var(--rule); line-height: 1; padding-top: 1mm; }
+  .fbody { flex: 1; }
+  .fbody p { margin-bottom: 0; font-size: 10pt; }
+  .evidence { margin-top: 2mm; font-size: 8.8pt; color: var(--ink-3); border-left: 2px solid var(--blue); padding-left: 3mm; }
+
+  /* stat tiles */
+  .tiles { display: flex; gap: 4mm; margin: 5mm 0 6mm; }
+  .tile { flex: 1; background: var(--tint); border-radius: 5px; padding: 5mm 5mm 5.5mm; }
+  .tile .n { font-size: 25pt; font-weight: 690; letter-spacing: -1px; line-height: 1; color: var(--accent); }
+  .tile .n .u { font-size: 12pt; font-weight: 600; }
+  .tile .l { font-size: 8.6pt; color: var(--ink-2); margin-top: 2.5mm; line-height: 1.4; }
+  .tile.bad .n { color: var(--critical); }
+
+  /* bar chart */
+  .chart { margin: 2mm 0 5mm; }
+  .chart-title { font-size: 10.5pt; font-weight: 650; margin-bottom: 1mm; }
+  .chart-sub { font-size: 8.8pt; color: var(--ink-3); margin-bottom: 4.5mm; }
+  .bar-row { display: flex; align-items: center; gap: 4mm; margin-bottom: 3.4mm; }
+  .bar-label { flex: 0 0 34mm; font-size: 9.3pt; text-align: right; color: var(--ink); font-weight: 600; }
+  .bar-track { flex: 1; position: relative; height: 11mm; }
+  .bar-fill { height: 100%; border-radius: 0 4px 4px 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 3mm; }
+  .bar-fill span { font-size: 9.3pt; font-weight: 660; color: #fff; white-space: nowrap; }
+  .bar-fill.sm { justify-content: flex-start; padding-right: 0; padding-left: 2mm; }
+  .bar-fill.sm span { color: var(--ink); position: absolute; left: calc(100% + 2.5mm); }
+  .axis-note { font-size: 8.3pt; color: var(--ink-3); margin-left: 38mm; }
+
+  /* cost list */
+  .cost { display: flex; gap: 4mm; padding: 3.4mm 0; border-bottom: 1px solid var(--rule); }
+  .cost:first-of-type { border-top: 1px solid var(--rule); }
+  .cost .dot { flex: 0 0 5px; height: 5px; border-radius: 50%; background: var(--critical); margin-top: 2.6mm; }
+  .cost p { margin: 0; font-size: 10pt; }
+
+  /* phases */
+  .phase { border-left: 3px solid var(--blue); padding: 0 0 0 6mm; margin-bottom: 6.5mm; }
+  .phase.p2 { border-color: #7aa9e0; }
+  .phase.p3 { border-color: #bcd3ec; }
+  .phase-head { display: flex; align-items: baseline; gap: 4mm; margin-bottom: 2.5mm; }
+  .phase-head h3 { margin: 0; font-size: 12.5pt; }
+  .phase-when { font-size: 8.3pt; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .phase ul { list-style: none; }
+  .phase li { font-size: 9.7pt; color: var(--ink-2); padding-left: 5mm; position: relative; margin-bottom: 1.6mm; line-height: 1.45; }
+  .phase li::before { content: ""; position: absolute; left: 0; top: 1.9mm; width: 2.5mm; height: 1px; background: var(--ink-3); }
+  .phase li b { color: var(--ink); font-weight: 640; }
+
+  /* table */
+  table { width: 100%; border-collapse: collapse; margin: 3mm 0 4mm; }
+  th { text-align: left; font-size: 7.9pt; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-3); font-weight: 650; padding: 0 3mm 2.2mm 0; border-bottom: 1.5px solid var(--rule); }
+  td { font-size: 9.6pt; padding: 2.7mm 3mm 2.7mm 0; border-bottom: 1px solid var(--rule); color: var(--ink-2); vertical-align: top; }
+  td.m { font-weight: 640; color: var(--ink); }
+  td.now { color: var(--critical); font-weight: 640; }
+  td.tgt { color: var(--good); font-weight: 640; }
+
+  /* callout */
+  .callout { background: var(--tint); border-radius: 5px; padding: 5mm 6mm; margin: 4mm 0; }
+  .callout h3 { font-size: 10.5pt; margin-bottom: 2mm; }
+  .callout p { font-size: 9.6pt; margin-bottom: 0; }
+
+  .note { font-size: 8.8pt; color: var(--ink-3); line-height: 1.5; border-top: 1px solid var(--rule); padding-top: 3.5mm; margin-top: auto; }
+  .note b { color: var(--ink-2); }
+
+  .two { display: flex; gap: 7mm; }
+  .two > div { flex: 1; }
+  ul.plain { list-style: none; }
+  ul.plain li { font-size: 9.8pt; color: var(--ink-2); padding-left: 5mm; position: relative; margin-bottom: 2.2mm; line-height: 1.45; }
+  ul.plain li::before { content: ""; position: absolute; left: 0; top: 1.9mm; width: 2.5mm; height: 1px; background: var(--blue); }
+  ul.plain li b { color: var(--ink); font-weight: 640; }
+
+  .final { background: var(--accent); color: #fff; border-radius: 6px; padding: 7mm; margin-top: 3mm; }
+  .final h3 { color: #fff; font-size: 13pt; margin-bottom: 3mm; }
+  .final p { color: #c3d6e4; font-size: 9.8pt; margin-bottom: 0; }
+  .final .ph { color: #fff; background: rgba(255,255,255,.14); padding: 1px 7px; border-radius: 3px; }
+
+  /* ---------- screen presentation (print output is unaffected) ---------- */
+  @media screen {
+    body { background: #e9e8e4; padding: 0 0 48px; }
+    .webbar {
+      position: sticky; top: 0; z-index: 10;
+      background: #15405f; color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 13px 22px;
+      font-size: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.22);
+    }
+    .webbar .t { font-weight: 620; letter-spacing: -0.1px; }
+    .webbar .t span { color: #8ec5ff; font-weight: 400; }
+    .webbar a {
+      color: #15405f; background: #fff; text-decoration: none;
+      font-weight: 640; font-size: 13px;
+      padding: 8px 15px; border-radius: 5px; white-space: nowrap;
+    }
+    .page {
+      margin: 26px auto; background: var(--surface);
+      box-shadow: 0 2px 14px rgba(0,0,0,.17);
+      page-break-after: auto;
+    }
+    .page.cover { background: var(--accent); }
+    /* scale the fixed A4 sheet down on narrow screens */
+    @media (max-width: 860px) {
+      body { --s: calc(100vw / 814); }
+      .page {
+        transform: scale(var(--s)); transform-origin: top left;
+        margin: 10px 0 0;
+        margin-bottom: calc((1123px * (var(--s) - 1)) + 14px);
+      }
+    }
+  }
+  @media print { .webbar { display: none !important; } }
+</style>
+</head>
+<body>
+<div class="webbar">
+  <div class="t">Neatcom &mdash; Marketing &amp; Website Review <span>&middot; November 2026</span></div>
+  <a href="Neatcom-Marketing-Review.pdf" download>Download PDF</a>
+</div>
+
+<!-- ============ 1. COVER ============ -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="cover-rule"></div>
+    <h1>Your website is costing you<br>customers.<br><em>Here's the proof — and the fix.</em></h1>
+    <div class="sub">An independent review of neatcom.co.uk, with a plan to turn it into something that actually brings in fleet enquiries.</div>
+  </div>
+  <div class="cover-mid">
+    <div class="cover-stats">
+      <div class="cover-stat"><div class="n">7.3s</div><div class="l">Before anything appears</div></div>
+      <div class="cover-stat"><div class="n">11.3 MB</div><div class="l">Homepage size</div></div>
+      <div class="cover-stat"><div class="n">25 mo</div><div class="l">Since last article</div></div>
+      <div class="cover-stat"><div class="n">0</div><div class="l">Reviews findable online</div></div>
+    </div>
+  </div>
+  <div class="cover-foot">
+    <div class="row">Prepared for Neatcom Communications Ltd</div>
+    <div class="row">By Vara &middot; vara1016@duck.com</div>
+    <div class="row">November 2026</div>
+  </div>
+</section>
+
+<!-- ============ 2. SHORT VERSION ============ -->
+<section class="page">
+  <div class="kicker">The short version</div>
+  <h2>I measured your website before writing this.</h2>
+  <p class="lead">Everything in this document comes from testing your live site — not from a template. No guesswork, no generic advice. Here is what I found, in plain English.</p>
+
+  <div class="finding">
+    <div class="fnum">01</div>
+    <div class="fbody">
+      <h3>Your website takes 7.3 seconds to show anything</h3>
+      <p>A visitor clicking you from Google stares at a blank screen for over seven seconds. Google's own guideline is under 2.5 seconds.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="fnum">02</div>
+    <div class="fbody">
+      <h3>Your homepage currently says "0%"</h3>
+      <p>Three headline statistics are broken. Right now the page reads "0% Fleet Efficiency Improvement" and "0% Reduction in Vehicle Theft" to every visitor and to Google.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="fnum">03</div>
+    <div class="fbody">
+      <h3>Nothing has been published in over two years</h3>
+      <p>Six articles total, the newest from October 2024 — and it tells customers about a compliance deadline that passed 18 months ago.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="fnum">04</div>
+    <div class="fbody">
+      <h3>You're advertising a product that has no page</h3>
+      <p>"Tacho Solution" is promoted on your homepage as a flagship new product. Clicking through leads nowhere. That is demand you've paid to create and then dropped.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="fnum">05</div>
+    <div class="fbody">
+      <h3>Google can't properly read your 29 products</h3>
+      <p>None carry the product information Google needs to show prices and availability in search results. Several have their specifications baked into images as pixels, which search engines cannot read at all.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:6mm">
+    <h3>The good news</h3>
+    <p>Your foundations are sound. Page titles are written properly, your site is secure, links resolve correctly, and nothing jumps around as the page loads. Your DVS Progressive Safe System page is genuinely strong — roughly 2,500 words on the most commercially urgent topic in UK fleet compliance. <strong>You don't need to start from nothing. You need the brakes taken off.</strong></p>
+  </div>
+  <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
+  <div class="pnum">2</div>
+</section>
+
+<!-- ============ 3. SPEED ============ -->
+<section class="page">
+  <div class="kicker">Finding in detail</div>
+  <h2>The speed problem is the big one.</h2>
+  <p class="lead">Over half of mobile visitors abandon a page that takes more than three seconds. Yours takes more than seven. Every other improvement is held back by this one.</p>
+
+  <div class="tiles">
+    <div class="tile bad"><div class="n">7.3<span class="u">s</span></div><div class="l">Until the first thing appears on screen</div></div>
+    <div class="tile bad"><div class="n">172</div><div class="l">Separate files the homepage loads</div></div>
+    <div class="tile bad"><div class="n">14</div><div class="l">Background videos playing at once</div></div>
+  </div>
+
+  <div class="chart">
+    <div class="chart-title">Homepage size: Neatcom vs a direct competitor</div>
+    <div class="chart-sub">Measured the same day, the same way. Lower is better.</div>
+    <div class="bar-row">
+      <div class="bar-label">Neatcom</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--orange)"><span>11.3 MB</span></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Fleetclear</div>
+      <div class="bar-track"><div class="bar-fill sm" style="width:3.2%;background:var(--blue)"><span>0.36 MB</span></div></div>
+    </div>
+    <div class="axis-note">Your homepage is roughly 31 times heavier than a competitor doing the same job.</div>
+  </div>
+
+  <h3 style="margin-top:3mm">Why it's so heavy</h3>
+  <p>Three causes, all fixable without redesigning anything:</p>
+  <ul class="plain">
+    <li><b>14 videos start playing the moment the page opens</b> — about 4 MB before a single word is read. The same three clips load over and over.</li>
+    <li><b>Images were never compressed.</b> One is a 782 KB screenshot of your app that is mostly flat black. It should be around 40 KB. Modern image formats are switched off entirely on your server.</li>
+    <li><b>The page loads 46 separate style files and 46 separate scripts.</b> That's the page builder's default behaviour, left unconfigured.</li>
+  </ul>
+
+  <div class="callout">
+    <h3>What that means commercially</h3>
+    <p>Google has used page speed as a ranking signal for years. You are competing against companies whose sites load in well under a second. Even with better content than theirs, you start every search from behind.</p>
+  </div>
+
+  <div class="note"><b>How I measured this.</b> Loaded your homepage in a real browser and recorded what it actually downloaded and when, then repeated the test on a competitor's site. These are observed figures, not estimates from a scoring tool.</div>
+  <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
+  <div class="pnum">3</div>
+</section>
+
+<!-- ============ 4. WHAT IT COSTS ============ -->
+<section class="page">
+  <div class="kicker">The business impact</div>
+  <h2>What this is costing you right now.</h2>
+  <p class="lead">None of the following is hypothetical. Each one is happening on your live site today.</p>
+
+  <div class="cost"><div class="dot"></div><p><strong>Every visitor who arrives from Google sees a blank screen for seven seconds.</strong> Most of them leave before your page appears. You pay for that traffic in ranking position, and you get nothing back from it.</p></div>
+  <div class="cost"><div class="dot"></div><p><strong>Your credibility is undermined before anyone reads a word.</strong> The homepage claims "0% Reduction in Vehicle Theft". Your contact page title reads "Wireless Wireless Vehicle Solutions". There is a blank white image sitting on your homepage. Fleet managers buying compliance equipment notice this kind of thing.</p></div>
+  <div class="cost"><div class="dot"></div><p><strong>Your newest article gives customers out-of-date compliance information.</strong> It announces a DVS deadline "extended till May 2025". On a subject where getting it wrong means fines, that does real damage to trust.</p></div>
+  <div class="cost"><div class="dot"></div><p><strong>You're invisible for the searches that matter most.</strong> DVS and Progressive Safe System demand is at its peak, and you have one good page on it against competitors running full guides. Meanwhile 45 of your 126 pages are empty tag archives adding nothing.</p></div>
+  <div class="cost"><div class="dot"></div><p><strong>No buyer can find a single review of you.</strong> I searched. There is no Trustpilot presence and no findable Google reviews. Your competitors publish named case studies with fleet sizes and results. In a considered B2B purchase, that gap decides deals.</p></div>
+  <div class="cost"><div class="dot"></div><p><strong>Your products can't appear properly in search results.</strong> 29 products with none of the data Google needs to display them with prices. Competitors selling the same DVS kits can appear with price and availability; you can't.</p></div>
+
+  <div class="callout" style="margin-top:7mm">
+    <h3>The honest summary</h3>
+    <p>You have a decent business with a website that actively works against it. Nothing here requires a rethink of what Neatcom does or how it sells — it requires someone to take the site seriously for a quarter.</p>
+  </div>
+
+  <div class="note"><b>What I haven't seen yet.</b> I ran this review from the outside. I have not had access to your Google Search Console, your analytics, or the WordPress admin, so this contains no data on what you currently rank for or where your traffic comes from. Connecting those is the first thing I'd do — it turns every recommendation here from a well-founded judgement into a measured one.</div>
+  <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
+  <div class="pnum">4</div>
+</section>
+
+<!-- ============ 5. THE PLAN ============ -->
+<section class="page">
+  <div class="kicker">The plan</div>
+  <h2>What I'd do, and in what order.</h2>
+  <p class="lead">Sequenced so the things that cost least and return fastest happen first.</p>
+
+  <div class="phase">
+    <div class="phase-head"><h3>Phase 1 — Stop the bleeding</h3><div class="phase-when">Weeks 1–2</div></div>
+    <ul>
+      <li><b>Fix the speed.</b> Turn on image compression, replace the autoplay videos with still images that play on click, and bundle the 92 separate files. Target: under 2 MB, loading in under 2.5 seconds.</li>
+      <li><b>Fix the embarrassing things.</b> The "0%" statistics, the two typos, the blank image, the broken product headings.</li>
+      <li><b>Clean up what Google sees.</b> Remove the three conflicting sitemaps, stop the 45 empty pages being indexed, fix the mobile zoom fault.</li>
+      <li><b>Connect the measurement.</b> Search Console and analytics, so everything after this is tracked rather than assumed.</li>
+    </ul>
+  </div>
+
+  <div class="phase p2">
+    <div class="phase-head"><h3>Phase 2 — Make the site sell</h3><div class="phase-when">Weeks 3–8</div></div>
+    <ul>
+      <li><b>Own the DVS and Progressive Safe System topic.</b> Your strongest page becomes the hub of a proper guide — star ratings, what PSS requires, evidence needed, what it costs. This is the highest-intent search demand in your market.</li>
+      <li><b>Build the Tacho Solution page</b> you're already advertising, and give the thin service pages real substance.</li>
+      <li><b>Make the 29 products visible</b> to Google with proper product data, real descriptions, and specifications written as text rather than baked into images.</li>
+      <li><b>Refresh the out-of-date articles</b> and verify every compliance claim against TfL directly.</li>
+      <li><b>Start collecting reviews and write three named case studies.</b> This is the single biggest trust gap against your competitors.</li>
+    </ul>
+  </div>
+
+  <div class="phase p3">
+    <div class="phase-head"><h3>Phase 3 — Build the pipeline</h3><div class="phase-when">Ongoing</div></div>
+    <ul>
+      <li><b>Publish consistently</b> — two useful articles a month, written for fleet managers facing a compliance decision, not for search engines.</li>
+      <li><b>Win locally.</b> Coventry, Birmingham and the wider Midlands are winnable; national head terms are not, yet.</li>
+      <li><b>Report monthly</b> against the baseline on the next page, so you can see exactly what the work bought.</li>
+    </ul>
+  </div>
+  <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
+  <div class="pnum">5</div>
+</section>
+
+<!-- ============ 6. WEBSITE ============ -->
+<section class="page">
+  <div class="kicker">The website</div>
+  <h2>On rebuilding the site.</h2>
+  <p class="lead">You've mentioned you want the website redone. Having looked at it closely, I agree — and I can tell you precisely why, which matters more than the opinion.</p>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:2.5mm">Why patching isn't enough</h3>
+      <p style="font-size:9.8pt">The site is built in a page builder with heavy add-ons, layered on a theme that fights it. That's why the homepage needs 46 stylesheets and 46 scripts to show what is essentially text and pictures.</p>
+      <p style="font-size:9.8pt">I can get the speed down substantially by configuring what's there — but the ceiling is set by the architecture. A clean rebuild removes the ceiling instead of raising it.</p>
+      <p style="font-size:9.8pt">There's also a structural problem no amount of tuning fixes: the site has 126 pages, 45 of which are empty archives, while the pages that should be selling — services, products — are thin.</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:2.5mm">What I'd keep</h3>
+      <p style="font-size:9.8pt">A rebuild doesn't mean throwing away what works.</p>
+      <ul class="plain">
+        <li><b>Your DVS page content</b> — it's the best thing on the site.</li>
+        <li><b>Your URLs</b>, so you keep whatever standing you've built.</li>
+        <li><b>Your brand and product photography</b>, properly compressed.</li>
+        <li><b>The FAQ content</b>, marked up so it can appear directly in Google.</li>
+      </ul>
+      <h3 style="margin:5mm 0 2.5mm">What changes</h3>
+      <ul class="plain">
+        <li><b>Built for speed first</b> — a target of under 1 second, which your competitors already manage.</li>
+        <li><b>Structured around how fleet buyers actually search</b>: by regulation, by vehicle type, by problem.</li>
+        <li><b>Every page with a clear next step</b> — quote, demo, or call.</li>
+        <li><b>Editable by your team</b> without needing a developer for a text change.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:5mm">
+    <h3>A sensible sequence</h3>
+    <p>Phase 1 fixes are worth doing on the current site even with a rebuild planned — they're quick, they recover ground immediately, and the content work carries straight across. I'd rather you saw results in week two than waited three months for a launch.</p>
+  </div>
+
+  <div class="note"><b>Next step on the rebuild.</b> Once I have access to the WordPress admin I can confirm the theme and plugin licences, check what's genuinely in use, and give you a firm scope and timeline rather than an estimate. Several of the fixes above also need that access to apply.</div>
+  <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
+  <div class="pnum">6</div>
+</section>
+
+<!-- ============ 7. MEASURE ============ -->
+<section class="page">
+  <div class="kicker">Accountability</div>
+  <h2>How you'll know it worked.</h2>
+  <p class="lead">These are today's figures, measured from your live site. Every one is independently verifiable — you can check them yourself at any point.</p>
+
+  <table>
+    <thead><tr><th style="width:42%">What we measure</th><th style="width:21%">Today</th><th style="width:21%">Target</th><th>By</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Time until something appears</td><td class="now">7.3 seconds</td><td class="tgt">Under 2.5s</td><td>End of month 1</td></tr>
+      <tr><td class="m">Homepage size</td><td class="now">11.3 MB</td><td class="tgt">Under 2 MB</td><td>End of month 1</td></tr>
+      <tr><td class="m">Files loaded per visit</td><td class="now">172</td><td class="tgt">Under 60</td><td>End of month 1</td></tr>
+      <tr><td class="m">Pages indexed that shouldn't be</td><td class="now">45</td><td class="tgt">0</td><td>End of month 1</td></tr>
+      <tr><td class="m">Products visible to Google with full data</td><td class="now">0 of 29</td><td class="tgt">29 of 29</td><td>Month 2</td></tr>
+      <tr><td class="m">Articles published in last 12 months</td><td class="now">0</td><td class="tgt">12+</td><td>Ongoing</td></tr>
+      <tr><td class="m">Findable customer reviews</td><td class="now">0</td><td class="tgt">15+</td><td>Month 3</td></tr>
+      <tr><td class="m">Published case studies</td><td class="now">0</td><td class="tgt">3</td><td>Month 3</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:9.6pt"><strong>On rankings and traffic.</strong> I've deliberately not promised a position or a percentage. Anyone who does, before seeing your Search Console data, is guessing. Once measurement is connected in week one, we'll set traffic and enquiry targets from your real baseline — and I'll report against them monthly.</p>
+
+  <div class="final">
+    <h3>Next step</h3>
+    <p>Give me access to the WordPress admin and Google Search Console, and I'll come back within a week with the Phase 1 work scoped precisely and the first fixes already applied on a staging copy — so you can see the speed difference before committing to anything further.</p>
+    <p style="margin-top:4mm"><span class="ph">Report written by: Vara</span> &nbsp;&middot;&nbsp; <span class="ph">vara1016@duck.com</span></p>
+  </div>
+  <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
+  <div class="pnum">7</div>
+</section>
+
+</body>
+</html>
