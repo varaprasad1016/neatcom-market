@@ -1,0 +1,4 @@
+# Internal working documents — never publish these to a public repo.
+# Only the client-facing review (index.html + PDF) and README belong here.
+*.md
+!README.md
