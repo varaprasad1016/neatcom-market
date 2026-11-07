@@ -153,21 +153,22 @@
     }
     .webbar .t { font-weight: 620; letter-spacing: -0.1px; }
     .webbar .t span { color: #8ec5ff; font-weight: 400; }
+    .webbar .links { display: flex; align-items: center; gap: 10px; }
     .webbar a {
-      color: #15405f; background: #fff; text-decoration: none;
-      font-weight: 640; font-size: 13px;
+      text-decoration: none; font-weight: 640; font-size: 13px;
       padding: 8px 15px; border-radius: 5px; white-space: nowrap;
     }
+    .webbar a.ghost { color: #c3d6e4; border: 1px solid rgba(255,255,255,.3); }
+    .webbar a.solid { color: #15405f; background: #fff; }
     .page {
       margin: 26px auto; background: var(--surface);
       box-shadow: 0 2px 14px rgba(0,0,0,.17);
       page-break-after: auto;
     }
     .page.cover { background: var(--accent); }
-    /* scale the fixed A4 sheet down on narrow screens.
-       --s is set as a unitless number by the script at the end of <body>;
-       scale() rejects a length, so this cannot be done in CSS alone. */
     @media (max-width: 860px) {
+      .webbar { padding: 11px 14px; font-size: 13px; }
+      .webbar a { padding: 7px 11px; font-size: 12px; }
       .page {
         transform: scale(var(--s, 1)); transform-origin: top left;
         margin: 10px 0 0;
@@ -180,8 +181,11 @@
 </head>
 <body>
 <div class="webbar">
-  <div class="t">Neatcom &mdash; Marketing &amp; Website Review <span>&middot; November 2026</span></div>
-  <a href="Neatcom-Marketing-Review.pdf" download>Download PDF</a>
+  <div class="t">Marketing &amp; Website Review <span>&middot; November 2026</span></div>
+  <div class="links">
+    <a class="ghost" href="growth-plan.html">Growth plan &rarr;</a>
+    <a class="solid" href="Neatcom-Marketing-Review.pdf" download>Download PDF</a>
+  </div>
 </div>
 
 <!-- ============ 1. COVER ============ -->
@@ -200,8 +204,8 @@
     </div>
   </div>
   <div class="cover-foot">
-    <div class="row">Prepared for Neatcom Communications Ltd</div>
-    <div class="row">By Vara &middot; vara1016@duck.com</div>
+    <div class="row">Prepared for <span class="ph">[Client name]</span> at Neatcom Communications Ltd</div>
+    <div class="row">By <span class="ph">[Your name]</span> &middot; <span class="ph">[Your company]</span></div>
     <div class="row">November 2026</div>
   </div>
 </section>
@@ -429,7 +433,7 @@
   <div class="final">
     <h3>Next step</h3>
     <p>Give me access to the WordPress admin and Google Search Console, and I'll come back within a week with the Phase 1 work scoped precisely and the first fixes already applied on a staging copy — so you can see the speed difference before committing to anything further.</p>
-    <p style="margin-top:4mm"><span class="ph">Report written by: Vara</span> &nbsp;&middot;&nbsp; <span class="ph">vara1016@duck.com</span></p>
+    <p style="margin-top:4mm"><span class="ph">Report written by: Vara</span> &nbsp;&middot;&nbsp; <span class="ph">vara1016@duck.com</span>
   </div>
   <div class="ftag">Neatcom — Marketing &amp; Website Review</div>
   <div class="pnum">7</div>

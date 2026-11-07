@@ -1,16 +1,25 @@
-# Neatcom — Marketing & Website Review
+# Neatcom — Marketing Review & Growth Plan
 
-A seven-page review of [neatcom.co.uk](https://www.neatcom.co.uk/), covering site
-performance, on-page SEO, content and competitive position, with a phased plan.
+Two companion documents on [neatcom.co.uk](https://www.neatcom.co.uk/), prepared November 2026.
 
-**Read it:** https://varaprasad1016.github.io/neatcom-market/
+### 1. Marketing & Website Review
+What's holding the site back, measured directly from the live site — performance,
+on-page SEO, content and competitive position, with a phased plan.
+
+**Read:** https://varaprasad1016.github.io/neatcom-market/
 **Download:** [Neatcom-Marketing-Review.pdf](Neatcom-Marketing-Review.pdf)
 
-All figures in the review were measured directly from the live site in November 2026.
+### 2. Growth Plan
+Where the next customers come from — five routes built around tachograph compliance,
+the software platform, and channel, with a priority order.
 
-| File | What it is |
-|---|---|
-| `index.html` | The review, formatted for screen and for print |
-| `Neatcom-Marketing-Review.pdf` | The same document as a print-ready A4 PDF |
+**Read:** https://varaprasad1016.github.io/neatcom-market/growth-plan.html
+**Download:** [Neatcom-Growth-Plan.pdf](Neatcom-Growth-Plan.pdf)
+
+---
+
+All site measurements were taken from the live site in November 2026. Regulatory
+details should be verified against GOV.UK, DVSA, TfL and FORS before use in
+customer-facing material.
 
 Prepared by Vara · vara1016@duck.com

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neatcom — Where Your Next Customers Come From</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#86847e;
+    --rule:#e4e3de; --accent:#15405f; --blue:#2a78d6; --orange:#eb6834;
+    --good:#0ca30c; --critical:#d03b3b; --tint:#f3f5f7;
+  }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family:"Segoe UI",system-ui,-apple-system,sans-serif; color:var(--ink);
+         background:var(--surface); font-size:10.5pt; line-height:1.52; -webkit-font-smoothing:antialiased; }
+  .page { width:210mm; height:297mm; padding:20mm 18mm 16mm; position:relative;
+          page-break-after:always; overflow:hidden; display:flex; flex-direction:column; }
+  .page:last-child { page-break-after:auto; }
+
+  .cover { background:var(--accent); color:#fff; padding:0; justify-content:space-between; }
+  .cover-top { padding:26mm 18mm 0; }
+  .cover-rule { width:54px; height:4px; background:var(--blue); margin-bottom:11mm; }
+  .cover h1 { font-size:33pt; line-height:1.14; font-weight:650; letter-spacing:-0.5px; }
+  .cover h1 em { font-style:normal; color:#8ec5ff; }
+  .cover .sub { margin-top:7mm; font-size:12.5pt; color:#c3d6e4; font-weight:350; max-width:138mm; line-height:1.5; }
+  .cover-mid { padding:0 18mm; margin-top:14mm; margin-bottom:auto; }
+  .cover-stats { display:flex; border-top:1px solid rgba(255,255,255,.2); border-bottom:1px solid rgba(255,255,255,.2); }
+  .cover-stat { flex:1; padding:7mm 0; border-right:1px solid rgba(255,255,255,.14); }
+  .cover-stat:last-child { border-right:0; }
+  .cover-stat .n { font-size:18pt; font-weight:680; letter-spacing:-0.5px; }
+  .cover-stat .l { font-size:7.4pt; color:#a8c3d6; text-transform:uppercase; letter-spacing:.09em; margin-top:2mm; line-height:1.35; padding-right:4mm; }
+  .cover-foot { padding:0 18mm 18mm; font-size:9.5pt; color:#a8c3d6; }
+  .cover-foot .row { margin-top:2.5mm; }
+
+  .kicker { font-size:7.8pt; font-weight:680; letter-spacing:.13em; text-transform:uppercase; color:var(--blue); margin-bottom:3.5mm; }
+  h2 { font-size:20pt; font-weight:650; letter-spacing:-0.35px; line-height:1.18; margin-bottom:4mm; }
+  h3 { font-size:11.5pt; font-weight:650; margin-bottom:1.6mm; }
+  p { margin-bottom:3mm; color:var(--ink-2); }
+  p.lead { font-size:11.5pt; color:var(--ink); line-height:1.55; margin-bottom:6mm; }
+  strong { color:var(--ink); font-weight:640; }
+  .pnum { position:absolute; bottom:9mm; right:18mm; font-size:8pt; color:var(--ink-3); }
+  .ftag { position:absolute; bottom:9mm; left:18mm; font-size:8pt; color:var(--ink-3); }
+
+  .idea { padding:3.9mm 0; border-top:1px solid var(--rule); }
+  .idea:last-of-type { border-bottom:1px solid var(--rule); }
+  .idea-head { display:flex; align-items:baseline; gap:4mm; margin-bottom:1.3mm; }
+  .idea-head h3 { margin:0; flex:1; }
+  .tag { font-size:7.3pt; font-weight:680; letter-spacing:.07em; text-transform:uppercase;
+         padding:1.1mm 2.4mm; border-radius:3px; white-space:nowrap; }
+  .tag.now { background:#fae3e3; color:#9c2525; }
+  .tag.rec { background:#dff0df; color:#0a6b0a; }
+  .tag.big { background:#dfeaf8; color:#1a4f8f; }
+  .idea p { margin:0; font-size:9.8pt; }
+
+  table { width:100%; border-collapse:collapse; margin:3mm 0 4mm; }
+  th { text-align:left; font-size:7.9pt; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3);
+       font-weight:650; padding:0 3mm 2.2mm 0; border-bottom:1.5px solid var(--rule); }
+  td { font-size:9.6pt; padding:2.6mm 3mm 2.6mm 0; border-bottom:1px solid var(--rule); color:var(--ink-2); vertical-align:top; }
+  td.m { font-weight:640; color:var(--ink); }
+  td.bad { color:var(--critical); font-weight:620; }
+  td.ok { color:var(--good); font-weight:620; }
+
+  .callout { background:var(--tint); border-radius:5px; padding:5mm 6mm; margin:4mm 0; }
+  .callout h3 { font-size:10.5pt; margin-bottom:2mm; }
+  .callout p { font-size:9.6pt; margin-bottom:0; }
+  .alert { background:#fdf0ee; border-left:3px solid var(--critical); border-radius:0 5px 5px 0; padding:5mm 6mm; margin:4mm 0; }
+  .alert h3 { font-size:10.8pt; margin-bottom:2mm; color:#9c2525; }
+  .alert p { font-size:9.7pt; margin-bottom:2.5mm; }
+  .alert p:last-child { margin-bottom:0; }
+
+  ul.plain { list-style:none; }
+  ul.plain li { font-size:9.8pt; color:var(--ink-2); padding-left:5mm; position:relative; margin-bottom:2.2mm; line-height:1.45; }
+  ul.plain li::before { content:""; position:absolute; left:0; top:1.9mm; width:2.5mm; height:1px; background:var(--blue); }
+  ul.plain li b { color:var(--ink); font-weight:640; }
+
+  ol.steps { list-style:none; counter-reset:s; }
+  ol.steps li { counter-increment:s; position:relative; padding-left:11mm; margin-bottom:5mm; }
+  ol.steps li::before { content:counter(s); position:absolute; left:0; top:-0.6mm;
+      font-size:15pt; font-weight:680; color:var(--blue); }
+  ol.steps h3 { margin-bottom:1mm; }
+  ol.steps p { font-size:9.7pt; margin:0; }
+
+  .note { font-size:8.8pt; color:var(--ink-3); line-height:1.5; border-top:1px solid var(--rule);
+          padding-top:3.5mm; margin-top:auto; }
+  .note b { color:var(--ink-2); }
+  .two { display:flex; gap:7mm; }
+  .two > div { flex:1; }
+
+  .final { background:var(--accent); color:#fff; border-radius:6px; padding:7mm; margin-top:3mm; }
+  .final h3 { color:#fff; font-size:13pt; margin-bottom:3mm; }
+  .final p { color:#c3d6e4; font-size:9.8pt; margin-bottom:0; }
+  .final .ph { color:#fff; background:rgba(255,255,255,.14); padding:1px 7px; border-radius:3px; }
+
+  /* ---------- screen presentation (print output is unaffected) ---------- */
+  @media screen {
+    body { background: #e9e8e4; padding: 0 0 48px; }
+    .webbar {
+      position: sticky; top: 0; z-index: 10;
+      background: #15405f; color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 13px 22px;
+      font-size: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.22);
+    }
+    .webbar .t { font-weight: 620; letter-spacing: -0.1px; }
+    .webbar .t span { color: #8ec5ff; font-weight: 400; }
+    .webbar .links { display: flex; align-items: center; gap: 10px; }
+    .webbar a {
+      text-decoration: none; font-weight: 640; font-size: 13px;
+      padding: 8px 15px; border-radius: 5px; white-space: nowrap;
+    }
+    .webbar a.ghost { color: #c3d6e4; border: 1px solid rgba(255,255,255,.3); }
+    .webbar a.solid { color: #15405f; background: #fff; }
+    .page {
+      margin: 26px auto; background: var(--surface);
+      box-shadow: 0 2px 14px rgba(0,0,0,.17);
+      page-break-after: auto;
+    }
+    .page.cover { background: var(--accent); }
+    @media (max-width: 860px) {
+      .webbar { padding: 11px 14px; font-size: 13px; }
+      .webbar a { padding: 7px 11px; font-size: 12px; }
+      .page {
+        transform: scale(var(--s, 1)); transform-origin: top left;
+        margin: 10px 0 0;
+        margin-bottom: calc((1123px * (var(--s, 1) - 1)) + 14px);
+      }
+    }
+  }
+  @media print { .webbar { display: none !important; } }
+</style>
+</head>
+<body>
+<div class="webbar">
+  <div class="t">Growth Plan <span>&middot; November 2026</span></div>
+  <div class="links">
+    <a class="ghost" href="index.html">&larr; Review</a>
+    <a class="solid" href="Neatcom-Growth-Plan.pdf" download>Download PDF</a>
+  </div>
+</div>
+
+<!-- 1 COVER -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="cover-rule"></div>
+    <h1>Where your next<br>customers come from.<br><em>And where to start.</em></h1>
+    <div class="sub">A growth plan for Neatcom — built on what the market actually rewards, not on what's easiest to sell.</div>
+  </div>
+  <div class="cover-mid">
+    <div class="cover-stats">
+      <div class="cover-stat"><div class="n">340</div><div class="l">Words on your biggest product</div></div>
+      <div class="cover-stat"><div class="n">28 days</div><div class="l">How often the law demands a download</div></div>
+      <div class="cover-stat"><div class="n">1 Jul 2026</div><div class="l">A rule many fleets missed</div></div>
+      <div class="cover-stat"><div class="n">0</div><div class="l">Reviews a buyer can find</div></div>
+    </div>
+  </div>
+  <div class="cover-foot">
+    <div class="row">Prepared for Neatcom Communications Ltd</div>
+    <div class="row">By Vara &middot; vara1016@duck.com</div>
+    <div class="row">November 2026</div>
+  </div>
+</section>
+
+<!-- 2 THE SHIFT -->
+<section class="page">
+  <div class="kicker">The strategic shift</div>
+  <h2>Tachograph should be leading, not DVS.</h2>
+  <p class="lead">The DVS rush is over. The Transport for London deadline passed in October 2024, and there is no further deadline published for 2027. Any campaign built on beating it is two years late — and every competitor who grew on that wave is now fighting over a shrinking pool.</p>
+
+  <p>Tachograph is the opposite of a one-off. Compare the two lines on what actually matters commercially:</p>
+
+  <table>
+    <thead><tr><th style="width:26%">&nbsp;</th><th style="width:37%">DVS / Progressive Safe System</th><th>Tachograph</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Where it applies</td><td class="bad">Greater London only</td><td class="ok">The whole country</td></tr>
+      <tr><td class="m">Which vehicles</td><td>HGVs over 12t entering London</td><td>All goods vehicles over 3.5t, and coaches with 10+ seats</td></tr>
+      <tr><td class="m">What triggers a sale</td><td class="bad">A deadline that expired in 2024</td><td class="ok">A permanent legal duty</td></tr>
+      <tr><td class="m">How often</td><td>Permit renewal</td><td class="ok">Driver cards every 28 days, vehicle units every 90, recalibration every 2 years</td></tr>
+      <tr><td class="m">Cost of getting it wrong</td><td>£550 a day</td><td class="bad">The operator licence itself</td></tr>
+      <tr><td class="m">Revenue shape</td><td>Hardware and fitting, once</td><td class="ok">Hardware, fitting, recalibration and subscription — indefinitely</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <h3>Why this matters for Neatcom specifically</h3>
+    <p>Tachograph is national, permanent, recurring, and carries the highest stakes in UK road transport. It also maps exactly onto what Neatcom already is — a company with its own software platform, its own engineers, and monthly maintenance contracts. The business model and the product are already aligned. The marketing isn't.</p>
+  </div>
+
+  <p>Today the tachograph page carries <strong>340 words</strong> and three generic headings. It never mentions remote downloading, calibration, or the 28- and 90-day deadlines that buyers actually search for. The DVS page — London-only, expired deadline — carries 2,490 words.</p>
+  <p><strong>The content investment is upside down against the commercial value.</strong> Correcting that is the single highest-return change available.</p>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">2</div>
+</section>
+
+<!-- 3 LIVE OPPORTUNITY -->
+<section class="page">
+  <div class="kicker">Act on this one first</div>
+  <h2>There is demand sitting unclaimed right now.</h2>
+  <p class="lead">Not a future deadline — a gap that already exists, today, in fleets that believe they are compliant.</p>
+
+  <p>The Department for Transport's tachograph timeline, as notified to the Traffic Commissioners, runs like this:</p>
+
+  <table>
+    <thead><tr><th style="width:30%">From</th><th>Requirement</th></tr></thead>
+    <tbody>
+      <tr><td class="m">21 August 2023</td><td>Smart Tachograph 2 in newly registered in-scope vehicles on international journeys</td></tr>
+      <tr><td class="m">21 February 2024</td><td>Smart Tachograph 2 in all newly registered in-scope vehicles, any journey type</td></tr>
+      <tr><td class="m">31 December 2024</td><td>Retrofit into analogue and digital-equipped vehicles on international journeys</td></tr>
+      <tr><td class="m">19 August 2025</td><td>Retrofit into smart-tachograph-1 vehicles on international journeys</td></tr>
+      <tr><td class="m">1 July 2026</td><td><strong>All goods vehicles over 2.5 tonnes on international journeys for hire and reward</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert">
+    <h3>The opportunity is in that last line</h3>
+    <p>The DfT issued a <strong>correction</strong> to the 1 July 2026 rule. It applies to <strong>all</strong> vehicles over 2.5 tonnes doing international hire-and-reward work — <strong>not just newly registered ones</strong>, which is what the original wording implied.</p>
+    <p>That correction went out on a mailing list. It is very easy to have missed. The date passed over four months ago, which means there are almost certainly vans on the road right now, out of compliance, whose operators are confident they're fine.</p>
+    <p>This is a <strong>"check your fleet today"</strong> campaign, and it can run this month.</p>
+  </div>
+
+  <h3 style="margin-top:2mm">Target it precisely</h3>
+  <p>Getting the scope wrong here would do more harm than staying quiet, so the campaign must be specific:</p>
+  <ul class="plain">
+    <li><b>In scope:</b> goods vehicles over 2.5 tonnes making international journeys for hire and reward.</li>
+    <li><b>Not in scope:</b> vehicles between 2.5 and 3.5 tonnes operating only within the UK — they still need no tachograph at all.</li>
+    <li><b>Not in scope:</b> international journeys on own account, where driving is not the driver's main activity.</li>
+  </ul>
+
+  <div class="note"><b>On sourcing.</b> These dates come from the DfT's own bulletin, which is a primary source. Before any of it goes into customer-facing material, confirm the current wording on GOV.UK — vendor and trade sources contradict each other on several details, and a wrong compliance claim does more damage in this market than silence.</div>
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">3</div>
+</section>
+
+<!-- 4 TACHO PLAYS -->
+<section class="page">
+  <div class="kicker">Route one</div>
+  <h2>Build the business around tachograph.</h2>
+  <p class="lead">Six moves, all of which turn a legal obligation your customers already have into recurring revenue.</p>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Remote downloading, as a module on your platform</h3><span class="tag rec">Recurring</span></div>
+    <p>The law demands driver card data every 28 days and vehicle unit data every 90. Most operators still do it by walking the yard with a key and chasing drivers. Remote downloading automates it, DVSA accepts the data, and the trade press is calling it the way forward. You already have the platform — this sells per vehicle, per month.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Approved tachograph centre status</h3><span class="tag big">Biggest ceiling</span></div>
+    <p>Tachographs need recalibration every two years, and after any repair or registration change. That is a mandated, diarised appointment for every vehicle in the country. It is also an engineer standing beside a truck — the best possible moment to sell a camera, a TPMS kit or a tracker.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Analysis and infringement reporting</h3><span class="tag rec">Recurring</span></div>
+    <p>Downloading the data is half the job. Operators then need drivers' hours analysis, Working Time Directive compliance and infringement reports — monthly, per driver. It pairs directly with the RFID driver management you already have.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Solve the agency driver problem</h3><span class="tag now">Quick win</span></div>
+    <p>Driver card data must be downloaded immediately before a driver leaves — agency drivers included. For anyone running agency or shift labour this is a genuine, felt administrative nightmare. RFID driver ID plus remote download solves it outright, and you own both halves already.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Sell the operator licence risk, honestly</h3><span class="tag now">Quick win</span></div>
+    <p>Drivers' hours failures put an operator in front of a Traffic Commissioner, and the licence is the business. That is the most powerful legitimate motivator in UK transport — a real consequence, not manufactured urgency. "Could you produce 28 days of driver card data right now?" is the whole pitch. International work needs 56 days.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Go after Earned Recognition operators</h3><span class="tag big">High value</span></div>
+    <p>DVSA Earned Recognition members work to tighter download intervals than the legal minimum. Tighter intervals make manual downloading impractical, so these operators genuinely need automation — and they identify themselves publicly.</p>
+  </div>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">4</div>
+</section>
+
+<!-- 5 PLATFORM -->
+<section class="page">
+  <div class="kicker">Route two</div>
+  <h2>Your software is your advantage. You're hiding it.</h2>
+  <p class="lead">Most of your competitors sell boxes. You sell boxes, the software that runs them, the engineers who fit them, and the contract that maintains them. Almost nobody in this market has all four.</p>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:2.5mm">What the competition actually is</h3>
+      <p style="font-size:9.8pt"><strong>Brigade is a hardware company.</strong> Cameras, sensors and alarms, sold through a tiered distributor network plus an OEM arm. What a Brigade customer does not get is a fleet platform — they bolt someone else's telematics on top.</p>
+      <p style="font-size:9.8pt"><strong>Pure telematics firms have the platform</strong> but no safety hardware and no fitters.</p>
+      <p style="font-size:9.8pt"><strong>You have both ends and the middle.</strong> One supplier, one app, one bill, one number to call when it breaks — against rivals where that's four companies pointing at each other.</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:2.5mm">And yet</h3>
+      <p style="font-size:9.8pt">The only real sighting of your app on the entire website is a single screenshot on the homepage. A visitor cannot tell you have software at all.</p>
+      <p style="font-size:9.8pt">Meanwhile a direct competitor markets <em>"we developed our own platform without using any third parties"</em> as its headline claim.</p>
+      <p style="font-size:9.8pt"><strong>You own the thing they advertise.</strong></p>
+    </div>
+  </div>
+
+  <div class="idea" style="margin-top:3mm">
+    <div class="idea-head"><h3>Put the platform at the front</h3><span class="tag now">Quick win</span></div>
+    <p>A proper product page, a demo video, real screenshots of live view and the driver dashboard, and a trial or sandbox login. This costs very little and changes what you look like to every prospect.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>White-label the platform to other installers</h3><span class="tag big">Highest margin</span></div>
+    <p>Dozens of small UK installers have fitting skills and customers but no platform — they resell someone else's on a thin margin. Sell them yours, branded as theirs. Recurring software revenue with no engineer time, no vehicle visits and no install cost. It scales in a way that fitting vans never will.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Sell software to fleets running rivals' hardware</h3><span class="tag rec">Recurring</span></div>
+    <p>If your platform can read third-party cameras and trackers, you can sell into a competitor's installed base without displacing a single camera. That is a far easier conversation than ripping kit out.</p>
+  </div>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">5</div>
+</section>
+
+<!-- 6 CHANNEL -->
+<section class="page">
+  <div class="kicker">Route three</div>
+  <h2>Partners, not more vans.</h2>
+  <p class="lead">Brigade's reach comes from its distributor and installer network, not from its own engineers. Your install team caps you at a Midlands radius. A partner network makes you national without hiring a single fitter.</p>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Turn the dealer page into a real programme</h3><span class="tag big">Compounding</span></div>
+    <p>Today the website has a "Dealer Contact" button with nothing behind it — no margins, no benefits, no reason to sign up. A real programme needs tiered trade pricing, product and fitting training, certification, co-branded quoting, two-way lead sharing and stock commitments. Platform access is the hook that keeps partners loyal. Target twenty in the first year.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Vehicle converters, bodybuilders and truck dealers</h3><span class="tag big">High leverage</span></div>
+    <p>Safety equipment is specified at the moment a vehicle is built or converted. Whoever is in the room then wins the fitment by default. The Midlands is full of converters, and your nearest comparable competitor targets this group explicitly — which tells you it works.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Leasing companies and insurance brokers</h3><span class="tag rec">Recurring</span></div>
+    <p>Telematics is routinely bundled into lease contracts. Insurers discount premiums for cameras and telematics, so brokers have a direct financial reason to recommend fitting. Both are referral channels that cost nothing per deal.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Supply manufacturers directly</h3><span class="tag big">Long game</span></div>
+    <p>The biggest ceiling of all. Brigade runs a dedicated arm supplying vehicle manufacturers. If your hardware is genuinely your own design, factory or dealer-fit supply to a converter chain, bus builder or specialist manufacturer is the step change. Slow and demanding — but it is how the large players got large.</p>
+  </div>
+
+  <div class="callout">
+    <h3>The Commercial Vehicle Show, NEC Birmingham — 20 to 22 April 2027</h3>
+    <p>Around 15,000 visitors and 320 exhibitors, twenty minutes from your front door. The travel and accommodation costs that make exhibiting expensive for everyone else barely apply to you. It is the natural place to recruit every partner named on this page. If a stand is too much this cycle, attend anyway and spend three days booking meetings.</p>
+  </div>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">6</div>
+</section>
+
+<!-- 7 ADJACENT + FOUNDATIONS -->
+<section class="page">
+  <div class="kicker">Routes four and five</div>
+  <h2>Two markets you already have the kit for.</h2>
+  <p class="lead">Your Bluetooth tags and RFID driver management reach buyers who aren't shopping for vehicle safety at all — and neither is mentioned anywhere in your marketing.</p>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Asset and equipment tracking</h3><span class="tag big">New market</span></div>
+    <p>Bluetooth tags track trailers, plant, tools, cages and containers. That is an entirely separate market with separate buyers — plant hire, construction, rental, waste and utilities — and losing equipment is a budget line those businesses already feel every month.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Driver management sold as compliance</h3><span class="tag rec">Recurring</span></div>
+    <p>RFID driver ID maps onto things fleets are <em>required</em> to do: who drove which vehicle, walkaround checks, defect reporting. FORS and CLOCS audits ask for exactly this evidence. Sell "pass your audit", not "RFID tags", and it stops being a technical feature and becomes a reason to buy.</p>
+  </div>
+
+  <h2 style="font-size:15pt; margin-top:7mm; margin-bottom:3mm">Three foundations that lift everything else</h2>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Get reviews and write case studies</h3><span class="tag now">Do first</span></div>
+    <p>I could not find a single independent review of Neatcom anywhere — no Trustpilot, no findable Google reviews. For a company asking fleets to trust it with safety-critical equipment <em>and</em> a monthly contract, that is a serious gap, and it quietly suppresses the conversion rate of every other idea here. Fifteen reviews and three named case studies.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Sell to the customers you already have</h3><span class="tag now">Fastest cash</span></div>
+    <p>Every customer's compliance obligations renew annually, and your maintenance contracts mean you already have a monthly relationship. Flag DVS permits, FORS audits and tacho recalibration dates sixty days out. Upsell the gaps: cameras but no TPMS, tracking but no driver ID, vehicles tracked but trailers not.</p>
+  </div>
+
+  <div class="idea">
+    <div class="idea-head"><h3>Chase public sector tenders</h3><span class="tag big">Steady pipeline</span></div>
+    <p>Councils, housing associations, NHS trusts, fire and police fleets all buy this equipment through published tenders, and most small suppliers never look. It costs nothing but time, and being a manufacturer with your own technology strengthens every bid.</p>
+  </div>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">7</div>
+</section>
+
+<!-- 8 PRIORITIES -->
+<section class="page">
+  <div class="kicker">Where to start</div>
+  <h2>If you only do five things.</h2>
+  <p class="lead">In this order. The first two cost almost nothing and can start this month.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Run the compliance-gap campaign now</h3>
+      <p>The 1 July 2026 correction means there are non-compliant vans on the road today whose operators don't know it. This is live demand, it needs no new product, and the window closes as competitors notice.</p>
+    </li>
+    <li>
+      <h3>Make tachograph your lead product</h3>
+      <p>Rebuild that 340-word page into the strongest thing on your site, and put remote downloading in front of every customer you have. National, permanent, recurring, and tied to the licence they cannot operate without.</p>
+    </li>
+    <li>
+      <h3>Put your platform at the front</h3>
+      <p>It is your clearest advantage over Brigade and it is currently invisible. A product page and a demo cost very little and change what every prospect sees.</p>
+    </li>
+    <li>
+      <h3>Sell to the customers you already have</h3>
+      <p>Renewals and upsells against the maintenance base. The fastest money available, and it funds everything below it.</p>
+    </li>
+    <li>
+      <h3>Build the dealer and converter channel</h3>
+      <p>This is how product companies in this market scale. It is slower than the rest, which is exactly why it should start now rather than later.</p>
+    </li>
+  </ol>
+
+  <div class="callout">
+    <h3>Reviews run alongside all five</h3>
+    <p>Fifteen Google reviews and three named case studies won't win a customer on their own, but they raise the conversion rate of every other route on this list. Start asking this week.</p>
+  </div>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">8</div>
+</section>
+
+<!-- 9 NEXT -->
+<section class="page">
+  <div class="kicker">Next step</div>
+  <h2>Five answers would sharpen all of this.</h2>
+  <p class="lead">This plan was built from the outside. A handful of facts only you have would change the order — and in two cases, change the work entirely.</p>
+
+  <ul class="plain">
+    <li><b>What do you charge monthly, per vehicle, and how long do contracts run?</b> This sets the whole budget. A customer who pays monthly for years justifies spending far more to win than a one-off sale does — and it decides whether advertising and a salesperson are affordable.</li>
+    <li><b>Are you already an approved tachograph centre?</b> Decides whether recalibration is a programme we build or a non-starter.</li>
+    <li><b>Does the platform already do remote tachograph downloading?</b> If it does, that route is a marketing job and could launch in weeks. If not, it's a development project — a very different timeline.</li>
+    <li><b>Is the hardware your own design, or rebadged?</b> Own design justifies going after manufacturers directly.</li>
+    <li><b>How many installations can you actually do in a week?</b> If fitting is the bottleneck, then partners and white-labelling matter more than generating leads, because they grow revenue without consuming engineer time.</li>
+  </ul>
+
+  <div class="callout">
+    <h3>One honest caution</h3>
+    <p>Several routes here rest on regulatory detail — tachograph dates, FORS, CLOCS, DVS. The tachograph timeline comes from the DfT directly and is solid. The surrounding detail came from trade and vendor sources that disagreed with each other on several points. Before any of it reaches a customer, it gets verified against GOV.UK, DVSA, TfL and FORS. In this market a wrong compliance claim costs more than saying nothing — your buyers are spending precisely because they fear getting compliance wrong.</p>
+  </div>
+
+  <div class="final">
+    <h3>What happens next</h3>
+    <p>Answer those five and I'll come back with the first campaign fully built — targeting, messaging and landing page — plus a costed plan for the routes you want to pursue. The compliance-gap campaign could be live within a fortnight of getting the go-ahead.</p>
+    <p style="margin-top:4mm"><span class="ph">Vara</span> &nbsp;&middot;&nbsp; <span class="ph">vara1016@duck.com</span></p>
+  </div>
+
+  <div class="ftag">Neatcom — Where Your Next Customers Come From</div>
+  <div class="pnum">9</div>
+</section>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  function fit() {
+    var w = root.clientWidth;
+    root.style.setProperty('--s', w < 861 ? Math.min(1, w / 814) : 1);
+  }
+  fit();
+  addEventListener('resize', fit);
+  addEventListener('orientationchange', fit);
+})();
+</script>
+</body>
+</html>
